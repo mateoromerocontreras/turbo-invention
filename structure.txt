@@ -1,0 +1,84 @@
+tailor-cv-backend/
+├── .gitignore
+├── pom.xml (or build.gradle)
+├── README.md
+└── src/
+    ├── main/
+    │   ├── java/
+    │   │   └── com/
+    │   │       └── tailorcv/
+    │   │           └── app/
+    │   │               ├── TailorCvApplication.java           <-- Main Entry Point
+    │   │               │
+    │   │               ├── config/                            <-- Global App Configurations
+    │   │               │   ├── SecurityConfig.java            <-- Spring Security & JWT Filter
+    │   │               │   ├── WebConfig.java                 <-- CORS & Web Mappings
+    │   │               │   └── DjangoPasswordEncoder.java     <-- Custom PBKDF2 Password Matcher
+    │   │               │
+    │   │               ├── user/                              <-- USER DOMAIN
+    │   │               │   ├── controller/
+    │   │               │   │   └── UserController.java        <-- REST Endpoints (/api/users)
+    │   │               │   ├── domain/
+    │   │               │   │   └── User.java                  <-- JPA Entity (users_user)
+    │   │               │   ├── dto/
+    │   │               │   │   ├── UserResponseDto.java
+    │   │               │   │   └── UserUpdateDto.java
+    │   │               │   ├── repository/
+    │   │               │   │   └── UserRepository.java        <-- Spring Data JPA Repository
+    │   │               │   └── service/
+    │   │               │       ├── UserService.java           <-- Interface
+    │   │               │       └── UserServiceImpl.java       <-- Business Logic Implementation
+    │   │               │
+    │   │               ├── subscription/                      <-- SUBSCRIPTION DOMAIN
+    │   │               │   ├── controller/
+    │   │               │   │   ├── SubscriptionController.java
+    │   │               │   │   └── WebhookController.java     <-- Lemon Squeezy / Stripe Listener
+    │   │               │   ├── domain/
+    │   │               │   │   └── Subscription.java          <-- JPA Entity (subscriptions_subscription)
+    │   │               │   ├── dto/
+    │   │               │   │   └── SubscriptionStatusDto.java
+    │   │               │   ├── repository/
+    │   │               │   │   └── SubscriptionRepository.java
+    │   │               │   └── service/
+    │   │               │       ├── SubscriptionService.java
+    │   │               │       └── SubscriptionServiceImpl.java
+    │   │               │
+    │   │               ├── tailoring/                         <-- TAILORING DOMAIN
+    │   │               │   ├── controller/
+    │   │               │   │   └── TailoringController.java   <-- REST Endpoints (/api/tailoring)
+    │   │               │   ├── domain/
+    │   │               │   │   └── TailoringSession.java      <-- JPA Entity (tailoring_tailoringsession)
+    │   │               │   ├── dto/
+    │   │               │   │   ├── CreateSessionRequestDto.java
+    │   │               │   │   └── TailoringResultDto.java
+    │   │               │   ├── repository/
+    │   │               │   │   └── TailoringSessionRepository.java
+    │   │               │   └── service/
+    │   │               │       ├── TailoringService.java
+    │   │               │       ├── TailoringServiceImpl.java
+    │   │               │       └── AiPromptService.java       <-- OpenAI / LLM Integration
+    │   │               │
+    │   │               └── shared/                            <-- Shared Utilities & Global Handling
+    │   │                   ├── exception/
+    │   │                   │   ├── GlobalExceptionHandler.java <-- @ControllerAdvice
+    │   │                   │   └── ResourceNotFoundException.java
+    │   │                   └── security/
+    │   │                       ├── JwtTokenProvider.java
+    │   │                       └── UserSecurityDetails.java
+    │   │
+    │   └── resources/
+    │       ├── application.yml (or application.properties)    <-- DB Connection, JWT Keys, AI Keys
+    │       └── db/
+    │           └── migration/
+    │               └── V1__baseline_django_schema.sql         <-- Flyway Migration Snapshot
+    │
+    └── test/                                                  <-- Unit & Integration Tests
+        └── java/
+            └── com/
+                └── tailorcv/
+                    └── app/
+                        ├── user/
+                        │   ├── UserRepositoryTest.java
+                        │   └── UserServiceTest.java
+                        ├── subscription/
+                        └── tailoring/
