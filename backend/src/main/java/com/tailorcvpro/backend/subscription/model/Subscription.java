@@ -1,4 +1,4 @@
-package com.tailorcvpro.backend.susbscription.model;
+package com.tailorcvpro.backend.subscription.model;
 
 import com.tailorcvpro.backend.user.model.User;
 import jakarta.persistence.*;
