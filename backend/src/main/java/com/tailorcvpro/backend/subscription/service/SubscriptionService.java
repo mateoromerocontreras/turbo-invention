@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SubscriptionService {
-    //SubscriptionResponseDto subscribe();
-    //SubscriptionResponseDto unsubscribe();
-    //SubscriptionResponseDto getSubscriptionBySubscriptionId(Long subscriptionId);
-    //SubscriptionResponseDto getSubscriptionByPlan(String plan);
+    // SubscriptionResponseDto subscribe();
+    // SubscriptionResponseDto unsubscribe();
+    // SubscriptionResponseDto getSubscriptionBySubscriptionId(Long subscriptionId);
+    // SubscriptionResponseDto getSubscriptionByPlan(String plan);
     SubscriptionResponseDto getSubscriptionByUserId(Long userId);
-    //List<SubscriptionResponseDto> getAllSubscriptions();
-    //void deleteSubscription(Long subscriptionId);
+    // List<SubscriptionResponseDto> getAllSubscriptions();
+    // void deleteSubscription(Long subscriptionId);
     SubscriptionResponseDto createOrUpdateSubscription(
             Long userId,
             String plan,
