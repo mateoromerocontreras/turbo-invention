@@ -21,7 +21,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public SubscriptionResponseDto getSubscriptionByUserId(Long userId) {
         Subscription subscription = subscriptionRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Subscription not found for userId: " + userId));
         return SubscriptionResponseDto.fromEntity(subscription);
     }
 
@@ -33,7 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                                                               String subscriptionId,
                                                               LocalDateTime periodEnd) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Subscription not found for userId: " + userId));
 
         Subscription subscription = subscriptionRepository.findByUserId(userId)
                 .orElseGet(() -> {
@@ -57,7 +57,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                                                        String newPlan,
                                                        LocalDateTime periodEnd) {
         Subscription subscription = subscriptionRepository.findByLemonSqueezySubscriptionId(lemonSqueezySubscriptionId)
-                .orElseThrow(() -> new IllegalArgumentException("Subscription not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Subscription not found for subscription id: "
+                        + lemonSqueezySubscriptionId));
         subscription.setPlan(newPlan);
         subscription.setCurrentPeriodEnd(periodEnd);
         subscription.setUpdatedAt(LocalDateTime.now());
