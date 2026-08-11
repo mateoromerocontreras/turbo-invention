@@ -2,10 +2,18 @@ package com.tailorcvpro.backend.tailoring.model;
 
 import com.tailorcvpro.backend.user.model.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tailoring_tailoringsession")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public  class TailoringSession {
 
     @Id

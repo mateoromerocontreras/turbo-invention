@@ -1,0 +1,33 @@
+# Maven target directory
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.rar
+
+# IDEs and Editors
+.idea/
+**/.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Local Database files
+backend/data/*.db
+*.db
+*.sqlite
+*.sqlite3
+
+# AI & Local Tooling
+.gemini/
+
+# Operating System & Temp files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+crash.log
