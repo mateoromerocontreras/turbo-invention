@@ -31,3 +31,5 @@ Thumbs.db
 *.log
 *.tmp
 crash.log
+/scripts/setup_github_project.py
+/.github/workflows/verify-issue-link.yml
