@@ -23,19 +23,20 @@ public class TailoringSessionServiceImpl implements TailoringSessionService{
 
     @Override
     @Transactional
-    public TailoringSessionResponseDto createTailoringSession(TailoringSessionRequestDto sessionRequest) {
-        User user = userRepository.findById(sessionRequest.userId())
+    public TailoringSessionResponseDto createTailoringSession(TailoringSessionRequestDto sessionRequestDto) {
+        User user = userRepository.findById(sessionRequestDto.userId())
                 .orElseThrow(() -> new IllegalArgumentException("Subscription not found for userId: "
-                        + sessionRequest.userId()));
+                        + sessionRequestDto.userId()));
         String result = mockLlmPromptServiceImpl.generateTailoredContent(
-                "string",
-                "string",
-                "string");
+                sessionRequestDto.sessionType(),
+                sessionRequestDto.jobDescription(),
+                sessionRequestDto.originalResume()
+        );
         TailoringSession tailoringSession = new TailoringSession();
         tailoringSession.setUser(user);
         tailoringSession.setResult(result);
         tailoringSession.setTokensUsed(5);
-        tailoringSession.setJobDescription(sessionRequest.jobDescription());
+        tailoringSession.setJobDescription(sessionRequestDto.jobDescription());
         tailoringSession.setCreatedAt(LocalDateTime.now());
 
         TailoringSession savedSession = tailoringSessionRepository.save(tailoringSession);
@@ -45,11 +46,16 @@ public class TailoringSessionServiceImpl implements TailoringSessionService{
 
     @Override
     public List<TailoringSessionResponseDto> getTailoringSessionsByUserId(Long userId) {
-        return List.of();
+        return tailoringSessionRepository.findByUserIdOrderByCreatedAtDesc(userId)
+                .stream()
+                .map(TailoringSessionResponseDto::fromEntity)
+                .toList();
     }
 
     @Override
     public TailoringSessionResponseDto getTailoringSessionById(Long id) {
-        return null;
+        TailoringSession session = tailoringSessionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tailoring session not found with id: " + id));
+        return TailoringSessionResponseDto.fromEntity(session);
     }
 }
