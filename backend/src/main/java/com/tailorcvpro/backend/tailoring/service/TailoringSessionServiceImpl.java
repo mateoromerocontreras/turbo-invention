@@ -19,15 +19,15 @@ import java.util.List;
 public class TailoringSessionServiceImpl implements TailoringSessionService{
     private final TailoringSessionRepository tailoringSessionRepository;
     private final UserRepository userRepository;
-    private final MockLlmPromptServiceImpl mockLlmPromptServiceImpl;
+    private final LlmPromptService llmPromptService;
 
     @Override
     @Transactional
     public TailoringSessionResponseDto createTailoringSession(TailoringSessionRequestDto sessionRequestDto) {
         User user = userRepository.findById(sessionRequestDto.userId())
-                .orElseThrow(() -> new IllegalArgumentException("Subscription not found for userId: "
+                .orElseThrow(() -> new IllegalArgumentException("User not found for userId: "
                         + sessionRequestDto.userId()));
-        String result = mockLlmPromptServiceImpl.generateTailoredContent(
+        String result = llmPromptService.generateTailoredContent(
                 sessionRequestDto.sessionType(),
                 sessionRequestDto.jobDescription(),
                 sessionRequestDto.originalResume()
