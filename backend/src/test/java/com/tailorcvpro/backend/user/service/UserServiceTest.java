@@ -82,7 +82,6 @@ class UserServiceTest {
     @Test
     @DisplayName("Should return user when valid ID is given")
     void shouldGetUserByIdSuccessfully() {
-        // TODO: Implement getUserById success scenario
         // GIVEN
         UserCreateDto dto = new UserCreateDto("new@example.com",
                 "pass123", "John", "Doe");
@@ -111,7 +110,6 @@ class UserServiceTest {
     @Test
     @DisplayName("Should throw exception when getUserById is called with nonexistent ID")
     void shouldThrowExceptionWhenUserNotFoundById() {
-        // TODO: Implement getUserById not found scenario
 
         when(userRepository.findById(1L)).
                 thenReturn(Optional.empty());
@@ -132,8 +130,7 @@ class UserServiceTest {
         user.setFirstName("John");
         user.setLastName("Doe");
 
-        // TODO: Stub userRepository.findByEmail("john@example.com")
-        //  to return Optional.of(user)
+
         when(userRepository.findByEmail("john@example.com"))
                 .thenReturn(Optional.of(user));
 
@@ -152,13 +149,10 @@ class UserServiceTest {
     @Test
     @DisplayName("Should throw exception when getUserByEmail is called with non existant email")
     void shouldThrowExceptionWhenUserNotFoundByEmail() {
-        // TODO: Stub userRepository.findByEmail("missing@example.com") to return Optional.empty()
         when(userRepository.findByEmail("missing@example.com"))
                 .thenReturn(Optional.empty());
 
-        // TODO: Use assertThatThrownBy(() -> userService.getUserByEmail("missing@example.com"))
-        //       and verify it throws IllegalArgumentException with
-        //       message "User not found with email: missing@example.com"
+
         assertThatThrownBy(() -> userService.getUserByEmail("missing@example.com"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("User not found with email: missing@example.com");

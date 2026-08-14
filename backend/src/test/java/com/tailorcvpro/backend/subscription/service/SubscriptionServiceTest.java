@@ -59,9 +59,7 @@ public class SubscriptionServiceTest {
     @Test
     @DisplayName("Should throw exception when getting subscription for user with no subscription")
     void shouldThrowExceptionWhenSubscriptionNotFoundForUser() {
-        // TODO: Stub subscriptionRepository.findByUserId(1L) to return Optional.empty()
         when(subscriptionRepository.findByUserId(1L)).thenReturn(Optional.empty());
-        // TODO: Assert that subscriptionService.getSubscriptionByUserId(1L) throws IllegalArgumentException
 
         assertThatThrownBy(() -> subscriptionService.getSubscriptionByUserId(1L))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -101,7 +99,6 @@ public class SubscriptionServiceTest {
     @Test
     @DisplayName("Should throw exception when webhook update receives unknown subscription id")
     void shouldThrowExceptionWhenWebhookSubscriptionNotFound() {
-        // TODO: Implement negative test case for handleWebhookUpdate!
         when(subscriptionRepository.findByLemonSqueezySubscriptionId("sub_999"))
                 .thenReturn(Optional.empty());
 
