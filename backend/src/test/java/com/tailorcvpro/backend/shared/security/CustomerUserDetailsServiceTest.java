@@ -1,6 +1,8 @@
 package com.tailorcvpro.backend.shared.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -50,5 +52,8 @@ public class CustomerUserDetailsServiceTest {
         UserDetails result = customerUserDetailsService.loadUserByUsername("test@example.com");
         // THEN 
         assertThat(result).isNotNull();
+        assertThat(result.getUsername()).isEqualTo(user.getEmail());
+        assertThat(result.getPassword()).isEqualTo(user.getPassword());
+        verify(userRepository, times(1)).findByEmail("test@example.com");
 	}
 }
