@@ -22,13 +22,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerUserDetailsServiceTest {
+public class CustomUserDetailsServiceTest {
 	
 	@Mock
 	private UserRepository userRepository;
 	
 	@InjectMocks
-	private CustomerUserDetailsService customerUserDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 	
 	@Test
 	@DisplayName("Should return UserDetails when valid email is provided")
@@ -42,7 +42,7 @@ public class CustomerUserDetailsServiceTest {
         // STUB
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
         // WHEN
-        UserDetails result = customerUserDetailsService.loadUserByUsername("test@example.com");
+        UserDetails result = customUserDetailsService.loadUserByUsername("test@example.com");
         // THEN 
         assertThat(result).isNotNull();
         assertThat(result.getUsername()).isEqualTo(user.getEmail());
@@ -55,8 +55,10 @@ public class CustomerUserDetailsServiceTest {
     public void shouldThrowUsernameNotFoundExceptionWhenInvalidEmail() {
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> customerUserDetailsService.loadUserByUsername("test@example.com"))
+        assertThatThrownBy(() -> customUserDetailsService.loadUserByUsername("test@example.com"))
                 .isInstanceOf(UsernameNotFoundException.class)
                 .hasMessage("User not found with email: " + "test@example.com");
+        verify(userRepository, times(1)).findByEmail("test@example.com");
+
     }
 }
