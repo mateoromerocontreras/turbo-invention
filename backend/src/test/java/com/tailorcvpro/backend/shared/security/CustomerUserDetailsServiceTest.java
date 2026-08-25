@@ -1,6 +1,7 @@
 package com.tailorcvpro.backend.shared.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.tailorcvpro.backend.user.model.User;
 import com.tailorcvpro.backend.user.repository.UserRepository;
-
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -32,14 +33,6 @@ public class CustomerUserDetailsServiceTest {
 	@Test
 	@DisplayName("Should return UserDetails when valid email is provided")
 	public void shouldReturnUserDetailsSuccessfully() {
-		// TODO 1. GIVEN: Create a dummy User.java entity with email, password, and active status.
-		// TODO 2. STUB: Tell Mockito: when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(dummyUser)).
-		// TODO 3. WHEN: Call userDetailsService.loadUserByUsername("test@example.com").
-		// TODO 4. THEN:
-		// TODO     • Assert the returned CustomUserDetails.java is not null.
-		// TODO     • Assert result.getUsername() equals "test@example.com".
-		// TODO     • Assert result.getPassword() equals the user's password.
-		// TODO     • Verify userRepository.findByEmail(...) was called exactly once.
 		// GIVEN
 		User user = new User();
         user.setId(1L);
@@ -56,4 +49,14 @@ public class CustomerUserDetailsServiceTest {
         assertThat(result.getPassword()).isEqualTo(user.getPassword());
         verify(userRepository, times(1)).findByEmail("test@example.com");
 	}
+
+    @Test
+    @DisplayName("Should throw a UsernameNotFoundException when invalid email")
+    public void shouldThrowUsernameNotFoundExceptionWhenInvalidEmail() {
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> customerUserDetailsService.loadUserByUsername("test@example.com"))
+                .isInstanceOf(UsernameNotFoundException.class)
+                .hasMessage("User not found with email: " + "test@example.com");
+    }
 }
