@@ -49,4 +49,92 @@ public class User {
 
     @Column(name = "base_resume", columnDefinition = "TEXT")
     private String baseResume;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Boolean getIsStaff() {
+		return isStaff;
+	}
+
+	public void setIsStaff(Boolean isStaff) {
+		this.isStaff = isStaff;
+	}
+
+	public Boolean getIsSuperuser() {
+		return isSuperuser;
+	}
+
+	public void setIsSuperuser(Boolean isSuperuser) {
+		this.isSuperuser = isSuperuser;
+	}
+
+	public LocalDateTime getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(LocalDateTime lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getBaseResume() {
+		return baseResume;
+	}
+
+	public void setBaseResume(String baseResume) {
+		this.baseResume = baseResume;
+	}
 }
